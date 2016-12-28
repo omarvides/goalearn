@@ -1,0 +1,76 @@
+consumes:
+- application/json
+- application/xml
+- application/gob
+- application/x-gob
+definitions:
+  UserApi:
+    description: A user (default view)
+    example:
+      age: 8.598754e+18
+      id: 6.094468e+18
+      name: Laudantium quibusdam.
+    properties:
+      age:
+        description: Age of the user
+        example: 8.598754e+18
+        format: int64
+        type: integer
+      id:
+        description: Unique user ID
+        example: 6.094468e+18
+        format: int64
+        type: integer
+      name:
+        description: The name of the user
+        example: Laudantium quibusdam.
+        type: string
+    required:
+    - id
+    - age
+    - name
+    title: 'Mediatype identifier: application/user.api+json; view=default'
+    type: object
+host: localhost:8081
+info:
+  description: A users management system API for any resource
+  title: User access API
+  version: ""
+paths:
+  /users/{userID}:
+    get:
+      description: Get user by id
+      operationId: user#show
+      parameters:
+      - description: User ID
+        in: path
+        name: userID
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/UserApi'
+        "404":
+          description: Not Found
+      schemes:
+      - http
+      summary: show user
+      tags:
+      - user
+produces:
+- application/json
+- application/xml
+- application/gob
+- application/x-gob
+responses:
+  NotFound:
+    description: Not Found
+  OK:
+    description: OK
+    schema:
+      $ref: '#/definitions/UserApi'
+schemes:
+- http
+swagger: "2.0"
